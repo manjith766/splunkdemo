@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <!-- ===== Splunk HEC Appender (HTTPS with disabled SSL validation) ===== -->
+    <appender name="SPLUNK" class="com.splunk.logging.HttpEventCollectorLogbackAppender">
+
+        <!-- Splunk HEC Endpoint -->
+        <url>https://localhost:8088</url>    <!-- HTTPS for secure connection -->
+        <token>36738706-eafd-454f-9d23-0c59708c8f55</token>
+
+        <!-- Splunk Indexing Info -->
+        <index>springdemo1</index>             <!-- Must match index created in Splunk -->
+        <sourcetype>springboot_json</sourcetype>
+        <source>springboot-console</source>
+
+
+        <!-- Batching Configuration -->
+        <batch_size_count>10</batch_size_count>
+        <batch_interval>200</batch_interval><!-- Send each event immediately -->
+          <!-- Sequential mode for predictable order -->
+
+        <!-- JSON Log Layout -->
+        <layout class="net.logstash.logback.layout.LoggingEventCompositeJsonLayout">
+            <providers>
+                <timestamp/>
+                <logLevel/>
+                <loggerName/>
+                <threadName/>
+                <message/>
+                <mdc/>
+                <stackTrace/>
+            </providers>
+        </layout>
+
+    </appender>
+
+    <!-- ===== Console Appender (local output) ===== -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level [%thread] %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- ===== Root Logger ===== -->
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="SPLUNK"/>
+    </root>
+
+</configuration>
