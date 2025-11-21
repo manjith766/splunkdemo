@@ -6,7 +6,7 @@
 
         <!-- Splunk HEC Endpoint -->
         <url>https://localhost:8088</url>    <!-- HTTPS for secure connection -->
-        <token>36738706-eafd-454f-9d23-0c59708c8f55</token>
+        <token>36738706-eafd-454f-9d23-0c5970f55</token>
 
         <!-- Splunk Indexing Info -->
         <index>springdemo1</index>             <!-- Must match index created in Splunk -->
